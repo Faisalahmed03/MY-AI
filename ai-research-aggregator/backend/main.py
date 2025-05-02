@@ -6,11 +6,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service  # ✅ Import Service for local driver
-
+from selenium.webdriver.chrome.service import Service
 import time
 
 app = FastAPI()
-
+CHROMEDRIVER_PATH = "/usr/bin/chromedriver"
+CHROME_BINARY_PATH = "/usr/bin/chromium-browser"
 # Enable CORS for frontend access
 app.add_middleware(
     CORSMiddleware,
@@ -24,6 +25,7 @@ def search_papers(query: str):
     print("Starting search for:", query)
 
     options = Options()
+    options.binary_location = CHROME_BINARY_PATH
    # options.add_argument("--headless")  # run Chrome in background
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
